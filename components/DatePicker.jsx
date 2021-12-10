@@ -6,19 +6,19 @@ const isDate = date => {
   return new Date(date) !== false && !isNaN(new Date(date))
 }
 
-const DatePicker = ({ setDate }) => {
+const DatePicker = () => {
   const router = useRouter()
-  const inputVal = useRef(null)
+  const dateRef = useRef(null)
 
   const handleSubmit = e => {
     e.preventDefault()
-    const currentInputVal = inputVal.current?.value
-    if (
-      currentInputVal &&
-      currentInputVal.length > 0 &&
-      isDate(currentInputVal)
-    ) {
-      setDate(currentInputVal)
+    const date = dateRef.current?.value
+
+    if (date && date.length > 0 && isDate(date)) {
+      router.push({
+        pathname: '/archives',
+        query: { date: date }
+      })
     }
     return
   }
@@ -28,8 +28,10 @@ const DatePicker = ({ setDate }) => {
       <FormControl id="date" isRequired>
         <FormLabel htmlFor="date">Pick a date</FormLabel>
         <Flex alignItems="center">
-          <Input type="date" name="date" ref={inputVal} mr={4} />
-          <Button type="submit">Search</Button>
+          <Input type="date" name="date" ref={dateRef} mr={4} />
+          <Button type="submit" bg="blue.500" color="light">
+            Search
+          </Button>
         </Flex>
       </FormControl>
     </form>

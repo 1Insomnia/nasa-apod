@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Box, Text, Flex, Image, Heading } from '@chakra-ui/react'
+import { Box, Text, Flex, Image, Heading, AspectRatio } from '@chakra-ui/react'
 
 const Apod = ({
   title,
@@ -7,7 +7,7 @@ const Apod = ({
   explanation,
   date,
   copyright,
-  media_types,
+  media_type,
   hdurl
 }) => {
   return (
@@ -17,27 +17,22 @@ const Apod = ({
           {title}
         </Heading>
         <Box pt={8}>
-          <Image src={url} alt={title} />
+          {media_type === 'image' ? (
+            <Image src={url} objectFit="cover center" alt={title} mt={8} />
+          ) : (
+            <AspectRatio ratio={16 / 9} mt={8}>
+              <iframe src={url} title={title} />
+            </AspectRatio>
+          )}
         </Box>
         <Box pt={8}>
           <Text lineHeight={{ base: 1.625, lg: 2 }}>{explanation}</Text>
           <Flex pt={8} alignItems="center" justifyContent="space-between">
             <Text>{date}</Text>
-            <Text>{copyright}</Text>
+            <Text>&copy; {copyright}</Text>
           </Flex>
         </Box>
       </Box>
-      {/* <Box position="fixed" top={0} left={0} w="100%" h="100vh">
-        <Image
-          src={hdurl}
-          alt={title}
-          w="100%"
-          h="100%"
-          objectFit="cover center"
-          bg="#000"
-          p={4}
-        />
-      </Box> */}
     </>
   )
 }
@@ -48,7 +43,7 @@ Apod.propTypes = {
   explanation: PropTypes.string,
   date: PropTypes.string,
   copyright: PropTypes.string,
-  media_types: PropTypes.string
+  media_type: PropTypes.string
 }
 
 export default Apod

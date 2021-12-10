@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import fetchData from '../lib/fetchData'
 import { Box, Heading } from '@chakra-ui/react'
@@ -6,7 +5,6 @@ import Apod from '../components/display/Apod'
 import DatePicker from '../components/DatePicker'
 
 const Archives = ({ data, error }) => {
-  const [date, setDate] = useState('')
   return (
     <>
       <Head>
@@ -14,24 +12,33 @@ const Archives = ({ data, error }) => {
         <meta name="description" content="Nasa Astronomy Picture of the Day" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <Box>{!error && <Apod {...data} />}</Box> */}
       <Box>
-        <Heading as="h1">Archives</Heading>
-        <Box pt={8}>
-          <DatePicker setDate={setDate} />
+        <Heading as="h1" textAlign="center">
+          Archives
+        </Heading>
+        <Box mt={8}>
+          <DatePicker />
         </Box>
       </Box>
+      <Box mt={8}>{!error && data && <Apod {...data} />}</Box>
     </>
   )
 }
 
-export const getServerSideProps = async () => {
-  const { data, error } = await fetchData('date=2021-10-10&')
-
+export const getServerSideProps = async ({ query }) => {
+  if (query.date) {
+    const { data, error } = await fetchData(`date=${query.date}&`)
+    return {
+      props: {
+        data: data,
+        error: error
+      }
+    }
+  }
   return {
     props: {
-      data: data,
-      error: error
+      data: [],
+      error: null
     }
   }
 }

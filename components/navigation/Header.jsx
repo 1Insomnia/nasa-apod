@@ -22,6 +22,7 @@ const Header = ({ path }) => {
             </Heading>
             <NavLink href="/" path={path} text="home" />
             <NavLink href="/archives" path={path} text="archives" />
+            <NavLink href="/gallery" path={path} text="gallery" />
           </Flex>
           <ThemeToggleButton />
         </Flex>

@@ -4,7 +4,6 @@ import { Box } from '@chakra-ui/react'
 import Apod from '../components/display/Apod'
 
 const Home = ({ data, error }) => {
-  console.log(data)
   return (
     <>
       <Head>
@@ -12,7 +11,7 @@ const Home = ({ data, error }) => {
         <meta name="description" content="Nasa Astronomy Picture of the Day" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box>{!error && <Apod {...data} />}</Box>
+      <Box as="section">{!error && <Apod {...data} />}</Box>
     </>
   )
 }
