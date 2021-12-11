@@ -29,7 +29,7 @@ const Apod = ({
           <Text lineHeight={{ base: 1.625, lg: 2 }}>{explanation}</Text>
           <Flex pt={8} alignItems="center" justifyContent="space-between">
             <Text>{date}</Text>
-            <Text>&copy; {copyright}</Text>
+            {copyright && <Text>&copy; {copyright}</Text>}
           </Flex>
         </Box>
       </Box>

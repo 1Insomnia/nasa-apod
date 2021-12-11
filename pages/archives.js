@@ -37,7 +37,7 @@ export const getServerSideProps = async ({ query }) => {
   }
   return {
     props: {
-      data: [],
+      data: null,
       error: null
     }
   }

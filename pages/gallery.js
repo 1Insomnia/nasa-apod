@@ -1,5 +1,6 @@
 import fetchData from '../lib/fetchData'
-import { Box, Heading, Image, VStack, AspectRatio } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
+import GalleryPost from '../components/display/GalleryPost'
 
 const gallery = ({ data }) => {
   return (
@@ -8,27 +9,9 @@ const gallery = ({ data }) => {
         Gallery
       </Heading>
       <Box mt={8}>
-        <VStack alignItems="start">
-          {data.map(item => (
-            <Box key={item.title} p={4}>
-              {item.media_type === 'image' ? (
-                <Image
-                  src={item.url}
-                  objectFit="cover center"
-                  alt={item.title}
-                  mt={8}
-                />
-              ) : (
-                <AspectRatio ratio={16 / 9} mt={8}>
-                  <iframe src={item.url} title={item.title} />
-                </AspectRatio>
-              )}
-              <Heading as="h2" fontSize="text.xl" mt={4}>
-                {item.title}
-              </Heading>
-            </Box>
-          ))}
-        </VStack>
+        {data.map(item => (
+          <GalleryPost {...item} key={item.title} />
+        ))}
       </Box>
     </Box>
   )
